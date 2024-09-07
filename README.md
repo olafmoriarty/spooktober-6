@@ -1,50 +1,50 @@
-# React + TypeScript + Vite
+# *Game Title Here*
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This is a work in progress which when it's complete will hopefully resemble a visual novel.
 
-Currently, two official plugins are available:
+This project is being made for the [Spooktober Visual Novel Jam 6](https://itch.io/jam/spooktober-2024), September 2024.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+# Game Design Document (WIP)
 
-## Expanding the ESLint configuration
+## DISCLAIMER
+This document will contain heavy game spoilers and should not be read if you want to play the game.
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+## Introduction
 
-- Configure the top-level `parserOptions` property like this:
+### Game summary
+When you wake up, everything is dark. You don't know where you are, who you are or how you got here, but you can feel someone calling for you.
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+Following the call, you find a candle-lit room, three young girls and an Ouija board. It doesn't take a rocket scientist to figure out that you're dead.
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+Who are you? What happened to you? How can you get your memories back? And why are you here, now, in this room? Will the Ouija board be just a teenage party game, or can it help you find the answers you're looking for?
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+### Platform
+The game runs in the browser and can be played on any device with an Internet connection and Javascript support.
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+### Languages and software
+* The game itself is programmed in React / TypeScript.
+* The narrative is written in [Ink](https://www.inklestudios.com/ink/).
+* Specifically, the narrative is imported into the code using the Ink port [inkjs](https://github.com/y-lohse/inkjs).
+
+### Genre
+*Game Title Here* is a horror visual novel.
+
+### Target audience
+The story is written with a Young Adult audience in mind, in particular for readers who enjoy psychological thrillers with supernatural horror elements, and the all-female cast may tilt the story in the direction of being a better match for women than for men.
+
+The mechanics of the game, such as it being fully playable in browser, including on phones, are intended to make the game available for casual readers who don't have a lot of experience with visual novels.
+
+## Concept
+
+### Gameplay overview
+The main game loop is that the humans in the room will ask you questions, and you must give them satisfying answers.
+
+An on-screen "spirit meter" shows your current spiritual power. Answering questions in such a way that the three girls bond with you will increase your spiritual power, and every three questions or so you will have enough power to gain a spirit level. Every time you gain a new spirit level, you get a new power, and one memory of your life is unlocked in the form of a flashback.
+
+Example of spirit powers are the ability to manipulate small objects or the ability to read minds.
+
+The first questions you receive are easy to answer, but as the game progresses, you will need to look around and examine the room, using your new powers, to gain information.
+
+### Theme interpretation
+The theme of the jam is to make a horror or halloween-themed visual novel.  This will be a horror story, starring a ghost.
+
