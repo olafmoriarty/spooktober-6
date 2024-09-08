@@ -1,4 +1,4 @@
-# *Game Title Here*
+# *Across the Board*
 
 This is a work in progress which when it's complete will hopefully resemble a visual novel.
 
@@ -27,7 +27,7 @@ The game runs in the browser and can be played on any device with an Internet co
 * Specifically, the narrative is imported into the code using the Ink port [inkjs](https://github.com/y-lohse/inkjs).
 
 ### Genre
-*Game Title Here* is a horror visual novel.
+*Across the Board* is a horror visual novel.
 
 ### Target audience
 The story is written with a Young Adult audience in mind, in particular for readers who enjoy psychological thrillers with supernatural horror elements, and the all-female cast may tilt the story in the direction of being a better match for women than for men.
