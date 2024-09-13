@@ -5,6 +5,6 @@
 ->room
 
 + [Look at ...]
-Description
+Description #me
 
 - ->amelia
