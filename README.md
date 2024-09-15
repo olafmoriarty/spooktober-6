@@ -1,4 +1,5 @@
 # *Across the Board*
+*Communicate with the living. Restore your lost memories. Awaken your spiritual powers.*
 
 This is a work in progress which when it's complete will hopefully resemble a visual novel.
 

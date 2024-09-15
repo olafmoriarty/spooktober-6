@@ -3,6 +3,7 @@
 * {
 	margin: 0;
 	padding: 0;
+	box-sizing: border-box;
 }
 
 :root {
@@ -15,6 +16,12 @@ body {
 	background: var(--background-color);
 	color: var(--text-color);
 	font-family: "Averia Libre";
+}
+
+kbd {
+	font-family: monospace;
+	font-weight: bold;
+	font-style: normal;
 }
 
 /* <Game /> */
@@ -41,6 +48,26 @@ body {
 	z-index: 100;
 }
 
+/* <Portrait /> */
+.portrait {
+	position: absolute;
+	z-index: 2;
+	bottom: 0;
+	right: 0;
+	animation-name: slide-in;
+	animation-duration: 0.5s;
+}
+
+.portrait img {
+	display: block;
+	height: calc(100vh - 2rem);
+	width: 100vw;
+	object-fit: contain;
+	object-position: right bottom;
+	filter: drop-shadow(0.2rem 0.2rem 0.2rem #000000) drop-shadow(0.2rem -0.2rem 0.2rem #000000) drop-shadow(-0.2rem 0.2rem 0.2rem #000000) drop-shadow(-0.2rem -0.2rem 0.2rem #000000);
+}
+  
+
 /* <Line /> */
 
 .line, .no-story-yet {
@@ -50,6 +77,10 @@ body {
 	bottom: 0;
 	margin: 0;
 	z-index: 10;
+}
+
+.layout-image .line {
+	position: static;
 }
 
 .line.narrative, .no-story-yet {
@@ -94,6 +125,25 @@ body {
 	animation: pulsating 2s linear infinite;
 }
 
+.layout-image .line {
+	margin: 0 1rem;
+}
+
+.layout-image .line .speaker {
+	display: block;
+	background: transparent;
+	color: #808080;
+	border: none;
+	padding: 0;
+}
+
+.layout-image .line .text {
+	background: transparent;
+	border: none;
+	padding: 0;
+	text-align: center;
+}
+
 /* <SplashImage /> */
 .game.layout-normal .splash-image {
 	display: none;
@@ -101,7 +151,6 @@ body {
 
 .splash-image {
 	display: block;
-	margin: auto;
 	border: solid 1px #808080;
 	padding: .5rem;
 	text-align: center;
@@ -110,11 +159,19 @@ body {
 
 /* <Choices /> */
 
+.choices-wrapper {
+	display: flex;
+	position: absolute;
+	width: 100vw;
+	height: 100vh;
+	justify-content: center;
+	align-items: center;
+	z-index: 100;
+}
+
 .choices {
 	display: flex;
 	flex-direction: column;
-	z-index: 100;
-	height: 100vh;
 	justify-content: center;
 	align-items: center;
 	gap: .5rem;
@@ -123,19 +180,68 @@ body {
 .choices button {
 	display: block;
 	font: inherit;
-	color: var(--text-color);
-	background: transparent;
+	color: inherit;
+	background: var(--transparent-black);
 	border: solid 1px #808080;
 	padding: .25rem .5rem;
 	border-radius: .125rem;
 }
 
+/* Back button */
+.choices.board [data-index="0"], .choices.person [data-index="0"] {
+	position: absolute;
+	top: .5rem;
+	left: .5rem;
+	border: none;
+	padding: 0;
+	font-size: .75rem;
+	color: var(--text-color);
+}
+.choices.board [data-index="0"]::before, .choices.person [data-index="0"]::before {
+	content: "« ";
+}
+
+/* Ouija */
+.choices.board {
+	min-width: 50%;
+	max-width: calc(100% - 2rem);
+	flex-direction: row;
+	flex-wrap: wrap;
+	background: #e7cfb4;
+	color: #563232;
+	justify-content: space-between;
+	padding: .5rem;
+	box-shadow: .25rem .25rem .25rem #808080;
+}
+
+.choices.board button {
+	border: none;
+	text-transform: uppercase;
+	font-weight: bold;
+	background: transparent;
+}
+.choices.board [data-index="1"], .choices.board [data-index="2"] {
+	width: calc(50% - 1rem);
+	font-size: 1.5rem;
+}
+
+/* Room (main menu) */
+.choices.room {
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+}
+
+.choices.room [data-index="3"] {
+	grid-column-start: 1;
+	grid-column-end: 4;
+}
+
 /* Animations */
 
 @keyframes pulsating {
-	0% {color: var(--text-color);}
-	50% {color: #808080;}
-	100% {color: var(--text-color);}
+	0% {color: #808080;}
+	50% {color: #ffbbbb;}
+	100% {color: #808080;}
 }
 
 /* Large screens */

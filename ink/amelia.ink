@@ -1,5 +1,5 @@
 = amelia
-#amelia
+#amelia #menuStyle:person
 
 + [BACK]
 ->room

@@ -1,5 +1,5 @@
 = natalie
-#natalie
+#natalie #menuStyle:person
 
 + [BACK]
 ->room

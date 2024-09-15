@@ -1,5 +1,5 @@
 = zoey
-#zoey
+#zoey #menuStyle:person
 
 + [BACK]
 ->room

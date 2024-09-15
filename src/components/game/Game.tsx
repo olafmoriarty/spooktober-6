@@ -15,8 +15,8 @@ const formatLine = (line : string) => {
 const Game = () => {
 
 	const [story, setStory] = useState<undefined | InstanceType<typeof Story>>(undefined);
-
 	const [currentLine, setCurrentLine] = useState(null as null|TextObject);
+	const [score, setScore] = useState(0);
 
 	useEffect(() => {
 		// Initialize story on load
@@ -66,6 +66,16 @@ const Game = () => {
 							tags.speakerName = 'Natalie';
 							tags.lineStyle = 'dialog';
 							break;
+						case "hailey":
+							tags.character = 'hailey';
+							tags.speakerName = 'Hailey';
+							tags.lineStyle = 'dialog';
+							break;
+						case "mia":
+							tags.character = 'mia';
+							tags.speakerName = 'Mia';
+							tags.lineStyle = 'dialog';
+							break;
 						case "chanting":
 							tags.character = 'chanting';
 							tags.speakerName = '';
@@ -79,12 +89,22 @@ const Game = () => {
 						case "anonymous":
 							tags.speakerName = '???';
 							break;
+						case "board":
+							tags.room = 'board';
+							tags.menuStyle = 'board';
+							break;
+						case "room":
+							tags.room = 'room';
+							tags.menuStyle = 'room';
+							break;
+						case "updateScore":
+							setScore(story.variablesState["score"]);
+							console.log(story.variablesState["score"]);
+							break;
+
 					}
 				}
 			});
-
-			console.log(story.currentChoices.map(el => el.text));
-			console.log(tags)
 
 			setCurrentLine({ text: text, tags: tags, choices: story.currentChoices ? story.currentChoices.map(el => el.text) : undefined});
 		}
@@ -104,6 +124,11 @@ const Game = () => {
 					className="splash-image"
 					src={`./images/${currentLine.tags.image}`} />
 			: null}
+			{currentLine.tags.character && ['zoey', 'amelia', 'natalie'].includes(currentLine.tags.character) ? 
+				<div className="portrait">
+					<img src="./characters/PLACEHOLDER.png" alt="" />
+				</div>
+			: null}
 			{currentLine.text ? 
 				<div className={`line ${currentLine.tags.lineStyle || ''}${currentLine.tags.character ? ' character-' + currentLine.tags.character	 : ''}`}>
 					{currentLine.tags.speakerName ?
@@ -113,12 +138,14 @@ const Game = () => {
 				</div>
 			: null}
 			{currentLine.choices && currentLine.choices.length ? 
-				<div className="choices">
-					{currentLine.choices.map((el, index) => <button key={index} onClick={() => selectChoice(index)}>{el}</button>)}
+				<div className="choices-wrapper">
+				<div className={`choices ${currentLine.tags.menuStyle || ''}`}>
+					{currentLine.choices.map((el, index) => <button key={index} data-index={index} onClick={() => selectChoice(index)}>{el}</button>)}
+				</div>
 				</div>
 			: null}
 			</>
-			: <div className="no-story-yet">Press any key or click/tap anywhere to start the game.</div>}
+			: <div className="no-story-yet"><p>Press <kbd>Space</kbd> or <kbd>Enter</kbd> or click/tap anywhere to start the game.</p></div>}
 			{
 			story?.canContinue ?
 			<button className="progress-button" onClick={progress}></button>
