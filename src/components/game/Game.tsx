@@ -9,8 +9,20 @@ const formatLine = (line : string) => {
 	if (lineParts.length < 2) {
 		return line;
 	}
-	return lineParts.map((el, index) => index % 2 === 1 ? <em>{el}</em> : el)
+	return lineParts.map((el, index) => index % 2 === 1 ? <em key={index}>{el}</em> : el)
 }
+
+const characterSprite = {
+	natalie: {
+		DEFAULT: 'natalie-nervous.png',
+		nervous: 'natalie-nervous.png',
+		
+	}
+} as {
+	[key : string]: {
+		[key : string] : string,
+	}
+};
 
 const Game = () => {
 
@@ -106,6 +118,18 @@ const Game = () => {
 				}
 			});
 
+			if (tags.character && characterSprite[tags.character]) {
+				if (tags.mood && characterSprite[tags.character][tags.mood]) {
+					tags.sprite = characterSprite[tags.character][tags.mood];
+				}
+				else {
+					tags.sprite = characterSprite[tags.character].DEFAULT || '';
+				}
+			}
+			else if (tags.character !== 'me') {
+				tags.sprite = '';
+			}
+
 			setCurrentLine({ text: text, tags: tags, choices: story.currentChoices ? story.currentChoices.map(el => el.text) : undefined});
 		}
 	}
@@ -116,7 +140,7 @@ const Game = () => {
 	}
 
 	return (
-		<div className={`game${currentLine?.tags.layout ? ' layout-' + currentLine.tags.layout : ''}`}>
+		<div className={`game${currentLine?.tags.layout ? ' layout-' + currentLine.tags.layout : ''}`} data-score={score}>
 			{currentLine ?
 			<>
 			{currentLine.tags.image ? 
@@ -124,9 +148,9 @@ const Game = () => {
 					className="splash-image"
 					src={`./images/${currentLine.tags.image}`} />
 			: null}
-			{currentLine.tags.character && ['zoey', 'amelia', 'natalie'].includes(currentLine.tags.character) ? 
+			{currentLine.tags.character && currentLine.tags.sprite ? 
 				<div className="portrait">
-					<img src="./characters/PLACEHOLDER.png" alt="" />
+					<img src={`./characters/${currentLine.tags.sprite}`} alt="" style={ {filter: ""} } />
 				</div>
 			: null}
 			{currentLine.text ? 
@@ -150,6 +174,12 @@ const Game = () => {
 			story?.canContinue ?
 			<button className="progress-button" onClick={progress}></button>
 			: null
+			}
+			{
+			<div className={`progress ${score ? '' : 'invisible'}`}>
+				<div className="target" style={{width: `${Math.ceil(score / 3.0) * 3 / 9 * 100}%`}}></div>
+				<div className="score" style={{width: `${score / 9 * 100}%`}}></div>
+			</div>
 			}
 		</div>
 	)

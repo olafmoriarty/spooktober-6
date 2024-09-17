@@ -1,7 +1,7 @@
 = prologue
-NO_TEXT #layout:image #image:lighting-candles.png
-NO_TEXT #image:placing-board.png
-We call... world... talk with us. #layout:normal #chanting
+... us. #layout:normal #chanting
+... talk with us.
+We call... world... talk with us.
 ... #me
 Did I fall asleep?
 ... Huh. What is that voice?
@@ -16,7 +16,7 @@ NO_TEXT
 
 ... to talk with us. #room #chanting
 Who are those girls? Were they the ones chanting? #me
-We call upon the spirit world and welcome any kind spirits to talk to us. #zoey #anonymous
+We call upon the spirit world and welcome any kind spirits to talk to us. #zoey #mood:calm #anonymous
 What are they doing? They're sitting in a circle on the floor. #me
 They look pretty focused. I don't think they've even noticed me entering.
 Wait, when did I enter? I can't remember opening the door. I was... in a dark place, then I decided to follow a voice, and now... I'm here? 
