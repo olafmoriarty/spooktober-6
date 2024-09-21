@@ -14,10 +14,13 @@ NO_TEXT #board
 {currentQuestion == 1:
 ->no_ghosts_here
 }
-
-That... doesn't make any sense at all in this context. #amelia
-
-- ->board
+{currentQuestion == 2:
+->spirit_is_evil
+}
+- That... doesn't make any sense at all in this context. #amelia
+Maybe we should try asking again? #natalie
+Okay. Spirit...
+->board
 
 = no_ghosts_here
 {no_ghosts_here > 1:
@@ -65,11 +68,23 @@ Me? *Gulp!* #natalie
 
 
 = are_you_friendly
-Uhm... Spirit? Are you friendly? #natalie
+Uhm... Spirit? Are you friendly? #natalie  #Q:Are you friendly?
 {are_you_friendly < 2:
-I... can't remember, but I assume I am? #me
+Am I "friendly"? I can't even remember my name! #me
+I should probably just say yes or no here. I... *assume* I'm friendly? #me
 }
 ->board
 
 = spirit_is_evil
-\*AAAAH!* It is evil! #Natalie
+\*AAAAH!* It is evil! We summoned an evil ghost! #natalie
+Relax. We talked about this, remember? When we come across an evil spirit, we just say goodbye to it, and it will go away. #zoey
+We have no interest in talking to you, spirit. Good bye! #zoey
+... #amelia
+... is it gone? #natalie
+I think so. #zoey
+... okay. So that's what happens if you tell someone you're evil. #me
+I probably shouldn't do that again.
+I'm still here, though, so clearly that "good bye" thing does not work.
+But I didn't get that tingly feeling I got last time, either. Maybe I need to... give them answers that satisfy them or something?
+Are there any other spirits here?
+->board

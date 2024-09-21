@@ -24,10 +24,12 @@ In a strange room that smells of incense and sage, covered in lit candles, where
 ... hold on. Am I *dead*?
 We call upon the spirit world and welcome any kind spirits to talk to us. #zoey #anonymous
 This isn't working. I told you this was a waste of time. #amelia #anonymous
-Shut up, Amelia! It takes a little time before a spirit responds, okay? #zoe #anonymous
+Shut up, Amelia! It takes a little time before a spirit responds, okay? #zoey #anonymous
 Again. Spirits. Aren't. Real. Why do your parents even *have* a Ouija board? #amelia
 W-we don't know that! Spirits could be real... So maybe one of them wants to talk to us? I-I think it's exciting! #natalie #anonymous
-Come on, Natalie. You're only doing this because Zoey wants to. You're terrified of the idea of ghosts. Can you imagine *talking* to one? It's not too late to admit that you'd rather we make cocoa and grilled cheese and watch an anime. #amelia
+Come on, Natalie. You're only doing this because Zoey wants to. #amelia
+You're *terrified* of the idea of ghosts. Can you imagine *talking* to one?
+It's not too late to admit that you'd rather we make cocoa and grilled cheese and watch an anime.
 I-I don't know... I mean... No, I prefer Z-Zoey's idea! #natalie
 You're outvoted, Amelia! Drop the skepticism, okay? You're scaring the spirits! #zoey
 Sigh. Okay. But if nothing happens in ten minutes, I'm going home. #amelia
