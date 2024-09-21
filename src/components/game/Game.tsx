@@ -17,6 +17,9 @@ const characterSprite = {
 		DEFAULT: 'natalie-nervous.png',
 		nervous: 'natalie-nervous.png',
 		
+	},
+	zoey: {
+		DEFAULT: 'zoey.png',
 	}
 } as {
 	[key : string]: {
@@ -38,6 +41,11 @@ const Game = () => {
 
 		setStory(ink);
 	}, []);
+
+	useEffect(() => {
+		window.addEventListener('keydown', progressOnSpace);
+		return (() => window.removeEventListener('keydown', progressOnSpace));
+	}, [currentLine, story]);
 
 	const progress = () => {
 		if (!story) {
@@ -134,6 +142,13 @@ const Game = () => {
 		}
 	}
 
+	const progressOnSpace = (ev : KeyboardEvent) => {
+		if (ev.key === ' ' || ev.key === 'Enter') {
+			ev.preventDefault();
+			progress();
+		}
+	}
+
 	const selectChoice = (choice : number) => {
 		story?.ChooseChoiceIndex(choice);
 		progress();
@@ -163,6 +178,7 @@ const Game = () => {
 			: null}
 			{currentLine.choices && currentLine.choices.length ? 
 				<div className="choices-wrapper">
+				{currentLine.tags.menuStyle === 'board' ? <p className="current-question">{currentLine.tags.Q}</p> : null}
 				<div className={`choices ${currentLine.tags.menuStyle || ''}`}>
 					{currentLine.choices.map((el, index) => <button key={index} data-index={index} onClick={() => selectChoice(index)}>{el}</button>)}
 				</div>
