@@ -32,6 +32,10 @@ const Game = () => {
 	const [story, setStory] = useState<undefined | InstanceType<typeof Story>>(undefined);
 	const [currentLine, setCurrentLine] = useState(null as null|TextObject);
 	const [score, setScore] = useState(0);
+	const [isPaused, setIsPaused] = useState(true);
+	const [selectedValue, setSelectedValue] = useState(0);
+	const [selectedFunction, setSelectedFunction] = useState(undefined as undefined|(() => () => void));
+	const [selectedMenu, setSelectedMenu] = useState('');
 
 	useEffect(() => {
 		// Initialize story on load
@@ -45,7 +49,16 @@ const Game = () => {
 	useEffect(() => {
 		window.addEventListener('keydown', progressOnSpace);
 		return (() => window.removeEventListener('keydown', progressOnSpace));
-	}, [currentLine, story]);
+	}, [currentLine, story, selectedValue, selectedFunction, isPaused]);
+
+	useEffect(() => {
+		window.addEventListener('keydown', selectOption);
+		return (() => window.removeEventListener('keydown', selectOption));
+	}, [currentLine, story, selectedValue, isPaused]);
+
+	useEffect(() => {
+		setSelectedValue(0);
+	}, [currentLine, isPaused, selectedMenu]);
 
 	const progress = () => {
 		if (!story) {
@@ -119,7 +132,6 @@ const Game = () => {
 							break;
 						case "updateScore":
 							setScore(story.variablesState["score"]);
-							console.log(story.variablesState["score"]);
 							break;
 
 					}
@@ -145,8 +157,43 @@ const Game = () => {
 	const progressOnSpace = (ev : KeyboardEvent) => {
 		if (ev.key === ' ' || ev.key === 'Enter') {
 			ev.preventDefault();
-			progress();
+			if (!isPaused) {
+				if (currentLine?.choices?.length) {
+					const currentChoice = mod(selectedValue, currentLine.choices.length);
+					selectChoice(currentChoice);
+					return;
+				}
+				progress();
+				return;
+			}
+			if (selectedFunction) {
+				selectedFunction();
+				setSelectedFunction(undefined);
+			}
 		}
+		if (ev.key === 'Escape') {
+			if (!isPaused) {
+				setIsPaused(true);
+			}
+			else if (!selectedMenu) {
+				setIsPaused(false);
+			}
+			else {
+				setSelectedMenu('');
+			}
+		}
+	}
+
+	const selectOption = (ev : KeyboardEvent) => {
+		if (ev.key === 'ArrowUp') {
+			ev.preventDefault();
+			setSelectedValue((value) => value - 1);
+		}
+		if (ev.key === 'ArrowDown') {
+			ev.preventDefault();
+			setSelectedValue((value) => value + 1);
+		}
+
 	}
 
 	const selectChoice = (choice : number) => {
@@ -180,7 +227,7 @@ const Game = () => {
 				<div className="choices-wrapper">
 				{currentLine.tags.menuStyle === 'board' ? <p className="current-question">{currentLine.tags.Q}</p> : null}
 				<div className={`choices ${currentLine.tags.menuStyle || ''}`}>
-					{currentLine.choices.map((el, index) => <button key={index} data-index={index} onClick={() => selectChoice(index)}>{el}</button>)}
+					{currentLine.choices.map((el, index) => <button key={index} data-index={index} className={currentLine.choices && mod(selectedValue, currentLine.choices.length) === index ? 'active' : ''} onClick={() => selectChoice(index)}>{el}</button>)}
 				</div>
 				</div>
 			: null}
@@ -191,14 +238,56 @@ const Game = () => {
 			<button className="progress-button" onClick={progress}></button>
 			: null
 			}
-			{
 			<div className={`progress ${score ? '' : 'invisible'}`}>
 				<div className="target" style={{width: `${Math.ceil(score / 3.0) * 3 / 9 * 100}%`}}></div>
 				<div className="score" style={{width: `${score / 9 * 100}%`}}></div>
 			</div>
+			{
+			isPaused ?
+			<button className="progress-button" onClick={progress}></button>
+			: null
 			}
+			{isPaused ? 
+				<MainMenu options={[
+					{text: 'Continue', func: () => setIsPaused(false)},
+					{text: 'New Game'},
+					{text: 'Load Game'},
+					{text: 'Save Game'},
+					{text: 'Options'},
+					{text: 'Credits'},
+				]}
+				selectedValue={selectedValue}
+				isMainMenu
+				setSelectedFunction={setSelectedFunction}
+				/>
+			: null}
 		</div>
 	)
 }
+
+const MainMenu = (props : {
+	options : { text : string|JSX.Element|JSX.Element[], func?: () => void }[],
+	isMainMenu? : boolean,
+	selectedValue : number,
+	setSelectedFunction : (f : undefined|(() => void)) => void,
+}) => {
+
+	const selectedValue = mod(props.selectedValue, props.options.length);
+	useEffect(() => {
+		props.setSelectedFunction(() => props.options[selectedValue].func);
+	}, [selectedValue])
+	return (
+		<div className="menu-wrapper">
+		<div className="menu">
+			{props.isMainMenu ? <h1>Across the Board</h1> : null}
+			{props.options.map((el, index) => <button onClick={el.func ? el.func : () => {}} className={selectedValue === index ? 'active' : ''} key={index}>{el.text}</button>)}
+		</div>
+		</div>
+	)
+}
+
+function mod(n : number, m : number) {
+	return ((n % m) + m) % m;
+  }
 
 export default Game;
